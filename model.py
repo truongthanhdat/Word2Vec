@@ -43,8 +43,8 @@ class Word2Vec:
         #Loss
         self.loss = tf.reduce_mean(-tf.reduce_sum(self.label * tf.log(self.predict), reduction_indices=[1]))
 
-    def train(self, numIters, sess):
-        opt = tf.train.GradientDescentOptimizer(0.01).minimize(self.loss)
+    def train(self, numIters, lr, sess):
+        opt = tf.train.GradientDescentOptimizer(lr).minimize(self.loss)
         sess.run(tf.global_variables_initializer())
         for idx in xrange(numIters):
             sess.run(opt, feed_dict={self.input: self.x, self.label: self.y})
